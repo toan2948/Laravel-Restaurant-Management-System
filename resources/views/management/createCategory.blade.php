@@ -21,7 +21,7 @@
                 <label for="categoryName">Category Name</label>
                 <input type="text" name="name" class="form-control" placeholder='Category...'>
                 </div>
-                <button type="submit">Save</button>
+                <button type="submit" class='btn btn-primary btn-sm'>Save</button>
             </form>
         </div>
         </div>
