@@ -17,6 +17,9 @@
         <div class='col-sm-8'>Category
             <a href="/management/category/create" class='btn btn-success btn-sm float-right' >Create Category</a>
             <hr>
+            @if(Session()->has('status'))
+                {{Session()->get('status')}}
+            @endif
         </div>
         </div>
 
