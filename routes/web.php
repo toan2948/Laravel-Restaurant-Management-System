@@ -11,10 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('/info', function () {
+    return view('info');
 });
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/management', function(){
+    return view('management.index');
+});
+
+Route::resource('management/category', 'Management\CategoryController');
