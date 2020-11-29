@@ -39,12 +39,11 @@
                         <td>{{$menu->category->name}}</td>
                             <!-- display the name of a category instead of the id -->
                         <td>
-                        <a href="" class='btn btn-warning'>Edit</a>
+                        <a href="/management/menu/{{$menu->id}}/edit" class='btn btn-warning'>Edit</a>
                         </td>
                         <td>
                             <form action="" method="post">
                             @csrf
-
                             <button type="submit" class='btn btn-danger btn-sm'>Delete</button>
                             </form>
                         </td>
@@ -52,6 +51,7 @@
                  @endforeach
                 </tbody>
             </table>
+            {{$menus->links()}}
         </div>
         </div>
 
