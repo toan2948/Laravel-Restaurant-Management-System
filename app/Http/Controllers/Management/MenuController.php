@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Menu;
 use App\Category;
-
-class CategoryController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(3);
-        return view('management.category')->with('categories',$categories);
+
+        $menus = Menu::paginate(3);
+        return view('management.menu')->with('menus',$menus);
     }
 
     /**
@@ -26,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('management.createCategory');
+        $categories=Category::all();
+        return view('management.createMenu')->with('categories',$categories);
     }
 
     /**
@@ -38,14 +40,33 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|unique:categories|max:255'
+            'name'=>'required|unique:menus|max:255',
+            'price'=>'required|numeric',
+            'category_id'=>'required|numeric'
         ]);
-        $category = new Category;
 
-        $category->name = $request->name;
-        $category->save();
+        $imageName='Noimage.png';
+        if($request->image){
+            $request->validate([
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:10000'
+            ]);
+
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('menu_images'), $imageName); 
+            //after this, muss creating a folder called 'menu_images' in /public
+        }
+        
+
+        $menu = new Menu;
+
+        $menu->name = $request->name;
+        $menu->image = $imageName; //not $request->image
+        $menu->price = $request->price;
+        $menu->desc = $request->desc;
+        $menu->category_id = $request->category_id;
+        $menu->save();
         $request->session()->flash('status',$request->name.' is saved');
-        return(redirect('/management/category'));
+        return(redirect('/management/menu'));
     }
 
     /**
@@ -67,8 +88,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('management.editCategory')->with('category',$category);
+      
     }
 
     /**
@@ -80,15 +100,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=>'required|unique:categories|max:255'
-        ]);
-        $category = Category::find($id);
-
-        $category->name = $request->name;
-        $category->save();
-        $request->session()->flash('status',$request->name.' is updated');
-        return(redirect('/management/category'));
+        //
     }
 
     /**
@@ -99,8 +111,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-        session()->flash('status','the category '.$id. ' is deleted');
-        return(redirect('/management/category'));
+        //
     }
 }
