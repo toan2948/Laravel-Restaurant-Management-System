@@ -42,10 +42,11 @@
                         <a href="/management/menu/{{$menu->id}}/edit" class='btn btn-warning'>Edit</a>
                         </td>
                         <td>
-                            <form action="" method="post">
+                        <form action="/management/menu/{{$menu->id}}" method="post">
                             @csrf
-                            <button type="submit" class='btn btn-danger btn-sm'>Delete</button>
-                            </form>
+                            @method('DELETE')
+                        <button type="submit" class='btn btn-danger btn-sm'>Delete</button>
+                        </form>
                         </td>
                     </tr>
                  @endforeach

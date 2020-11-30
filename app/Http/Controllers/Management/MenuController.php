@@ -139,6 +139,15 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Menu::destroy($id);
+        session()->flash('status','the menu '.$id. ' is deleted');
+        return(redirect('/management/menu'));
+
+        // other method:
+        /*$menu = Menu::find($id);
+        $menu->delete();
+        session()->flash('status','the menu '.$id. ' is deleted');
+        return(redirect('/management/category'));
+*/
     }
 }
