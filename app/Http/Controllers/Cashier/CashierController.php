@@ -237,6 +237,9 @@ class CashierController extends Controller
         if($saleDetails){
             $html = $this->getSaleDetail($sale_id);
         }else{
+            $table =Table::where('id',$sale->table_id)->first();
+            $table->status ='available';
+            $table->save();
             $sale->delete();
             $html = "Not Found Any Sale Details for the Selected Table";
         }
