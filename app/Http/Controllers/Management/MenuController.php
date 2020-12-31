@@ -48,7 +48,7 @@ class MenuController extends Controller
         $imageName='Noimage.png';
         if($request->image){
             $request->validate([
-                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:10000'
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:5000'
             ]);
 
             $imageName = time().'.'.$request->image->extension();  
