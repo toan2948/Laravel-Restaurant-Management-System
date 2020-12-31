@@ -226,6 +226,8 @@ $(document).ready(function(){
 
     });
 
+
+    //Make Payment
     $('.modal-footer .btn-payment').click(function(){
         var totalAmount = $('#order-detail .goPay').data("totalamount");
         console.log(totalAmount ); //for checking, open Console from Browser

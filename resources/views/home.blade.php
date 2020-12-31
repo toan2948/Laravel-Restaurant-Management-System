@@ -14,14 +14,14 @@
                         </div>
                     @endif
                     <div class="row text-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <a href="/management">
                             <h4>Management</h4>
                             <img width="50px" src="{{asset('images/management.svg')}}" alt="">
                             </a>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <a href="/cashier">
                             <h4>Cashier</h4>
                             <img width="50px" src="{{asset('images/cashier.svg')}}" alt="">
@@ -29,13 +29,7 @@
                             </a>
                         </div>
                        
-                        <div class="col-sm-4">
-                            <a href="/report">
-                            <h4>Report</h4>
-                            <img width="50px" src="{{asset('images/report.svg')}}" alt="">
-
-                            </a>
-                        </div>
+                    
                        
                        
                   
