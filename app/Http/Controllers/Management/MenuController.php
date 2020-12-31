@@ -105,7 +105,7 @@ class MenuController extends Controller
     {
 
         $request->validate([
-            'name'=>'required|max:255',
+            'name'=>'required|max:255', // remove 'unique' from this line
             'price'=>'required|numeric',
             'category_id'=>'required|numeric'
         ]);

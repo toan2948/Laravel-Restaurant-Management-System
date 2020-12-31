@@ -35,6 +35,15 @@ Route::resource('management/table', 'Management\TableController');
 
 Route::get('/cashier','Cashier\CashierController@index');
 Route::get('/cashier/getMenuByCategory/{category_id}','Cashier\CashierController@getMenuByCategory');
+//method 1: Route::post('/cashier/getSaleDetailsByTable/{table_id}','Cashier\CashierController@getSaleDetailsByTable');
+//method 2:
+Route::get('/cashier/getSaleDetailsByTable/{table_id}','Cashier\CashierController@getSaleDetailsByTable');
+
 Route::post('/cashier/orderFood','Cashier\CashierController@orderFood');
 
 Route::get('/cashier/getTable','Cashier\CashierController@getTable');
+Route::post('/cashier/confirmOrder','Cashier\CashierController@confirmOrder');
+Route::post('/cashier/removeMenu','Cashier\CashierController@removeMenu');
+Route::post('/cashier/updatePayment','Cashier\CashierController@updatePayment');
+
+
