@@ -46,7 +46,7 @@ class CashierController extends Controller
             $html ='
                 <div class ="col-me-3" text-canter>
                     <a class="btn btn-outline-secondary btn-menu" data-id="'.$menu->id.'">
-                        <img class="img-fluid" src="'.url('/menu_images/'.$menu->image).'">
+                        <img class="img-fluid" width="100px" src="'.url('/menu_images/'.$menu->image).'">
                         <br>
                         '.$menu->name.'
                         <br>
@@ -67,7 +67,7 @@ class CashierController extends Controller
         $table_name= $request->table_name;
 
         $sale =Sale::where('table_id',$table_id)->where('sale_status','unpaid')->first(); //retrieve a single row
-            //get() mothod, in stead of first() method will show an inverse result
+            //get() method, instead of first() method will show an inverse result
         if(!$sale){ //if $sale does not exist
             $sale =new Sale();
             $sale->table_id = $table_id;
@@ -166,7 +166,7 @@ class CashierController extends Controller
             ';
             
             $saleDetail_list = SaleDetail::where('sale_id',$sale_id)->get();
-            //variable to check if all orders are confirmed
+            //$confirmed to check if all orders are confirmed
             $confirmed =true;
             foreach($saleDetail_list as $saleDetail){
                 $html .='
@@ -196,7 +196,7 @@ class CashierController extends Controller
             $html .='<br>
             <button type="button" class="btn btn-block btn-warning goConfirm" data-id="'.$sale_id.'"> Confirm Order </button>
             ';
-        } else {
+        } else if($confirmed==true) {
             $html .='<br>
             <button type="button" data-toggle="modal" data-target="#exampleModal" data-totalAmount ="'.$sale->total_price.'" class="btn btn-block btn-danger goPay" data-id="'.$sale_id.'" >  Go Payment </button>
             ';
@@ -228,12 +228,18 @@ class CashierController extends Controller
 
         $saleDetail = SaleDetail::find($saleDetail_id);
         $sale = Sale::find($sale_id);
-         $sub = $saleDetail->menu_price * $request->quantity;
-        $sale->total_price = $sale->total_price- $sub;
+        $sub = $saleDetail->menu_price * $request->quantity;
+        $sale->total_price = $sale->total_price - $sub;
         $sale->save(); 
         $saleDetail->delete();
-
-        $html = $this->getSaleDetail($sale_id);
+        // check if there any saledetail which has the sale id 
+        $saleDetails = SaleDetail::where('sale_id', $sale_id)->first();
+        if($saleDetails){
+            $html = $this->getSaleDetail($sale_id);
+        }else{
+            $sale->delete();
+            $html = "Not Found Any Sale Details for the Selected Table";
+        }
         return $html;
     }
 

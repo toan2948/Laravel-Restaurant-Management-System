@@ -83,20 +83,6 @@ $(document).ready(function(){
 
     //load menus by category
      $('.nav-link').click(function(){
-        if($('#menu-list').is(":hidden")){
-             $.get("/cashier/getMenuByCategory/" + $(this).data("id"),function(data){
-             $("#menu-list").hide();   
-             $("#menu-list").html(data);  
-             $("#menu-list").fadeIn('fast');   
-            });
-        }
-        else {
-             $("#menu-list").slideUp('fast'); 
-        } 
-        
-    });
-
-     $('.nav-link').click(function(){
              $.get("/cashier/getMenuByCategory/" + $(this).data("id"),function(data){
              $("#menu-list").hide();   
              $("#menu-list").html(data);  
