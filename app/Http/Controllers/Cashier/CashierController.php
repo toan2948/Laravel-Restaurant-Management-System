@@ -43,10 +43,10 @@ class CashierController extends Controller
         $html='';
 
         foreach($menus as $menu){
-            $html ='
-                <div class ="col-me-3" text-canter>
+            $html .='
+                <div class ="col-me-3" text-center>
                     <a class="btn btn-outline-secondary btn-menu" data-id="'.$menu->id.'">
-                        <img class="img-fluid" width="100px" src="'.url('/menu_images/'.$menu->image).'">
+                        <img class="img-fluid"  width="150" height="100" src="'.url('/menu_images/'.$menu->image).'">
                         <br>
                         '.$menu->name.'
                         <br>
