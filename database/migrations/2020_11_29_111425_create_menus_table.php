@@ -16,7 +16,7 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->decimal('price',8,2);
+            $table->decimal('price',8,2); //precision (total digits) and scale (decimal digits):
             $table->string('image');
             $table->text('desc');
             $table->integer('category_id');

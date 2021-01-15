@@ -50,7 +50,6 @@ class MenuController extends Controller
             $request->validate([
                 'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:5000'
             ]);
-
             $imageName = time().'.'.$request->image->extension();  
             $request->image->move(public_path('menu_images'), $imageName); 
             //after this, muss creating a folder called 'menu_images' in /public
@@ -60,7 +59,7 @@ class MenuController extends Controller
         $menu = new Menu;
 
         $menu->name = $request->name;
-        $menu->image = $imageName; //not $request->image
+        $menu->image = $imageName;   
         $menu->price = $request->price;
         $menu->desc = $request->desc;
         $menu->category_id = $request->category_id;
@@ -111,7 +110,7 @@ class MenuController extends Controller
         ]);
         $menu = Menu::find($id);
 
-      /*  if($request->image){
+        /*  if($request->image){
             $request->validate([
                 'image' => 'nullable'
             ]);
@@ -120,9 +119,9 @@ class MenuController extends Controller
         } else{
             $imageName = $menu->image;
         }
-*/
+            */
         $menu->name = $request->name;
-       // $menu->image = $imageName; //not $request->image
+        // $menu->image = $imageName; 
         $menu->price = $request->price;
         $menu->desc = $request->desc;
         $menu->category_id = $request->category_id;
@@ -148,6 +147,6 @@ class MenuController extends Controller
         $menu->delete();
         session()->flash('status','the menu '.$id. ' is deleted');
         return(redirect('/management/category'));
-*/
+        */
     }
 }

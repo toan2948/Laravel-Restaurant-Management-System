@@ -24,7 +24,6 @@
 
 <!-- Button trigger modal -->
 
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -61,7 +60,7 @@
 
 <script>
 $(document).ready(function(){
-    //make tables hidden
+    //hide tables
     $('#table-detail').hide();
 
     //show tables
@@ -82,65 +81,24 @@ $(document).ready(function(){
     });
 
     //load menus by category
-     $('.nav-link').click(function(){
-             $.get("/cashier/getMenuByCategory/" + $(this).data("id"),function(data){
-             $("#menu-list").hide();   
-             $("#menu-list").html(data);  
-             $("#menu-list").fadeIn('fast');   
-            });  
-    });
+     $('.nav-link').click(function()
+     {
+        $.get("/cashier/getMenuByCategory/" + $(this).data("id"),function(data){
+              $("#menu-list").hide();   
+              $("#menu-list").html(data);  
+              $("#menu-list").fadeIn('fast');   
+        });  
+     });
 
     var selected_table_id="";
     var selected_table_name="";
-    //show the name of table
+    //show Sale Detail of each table
     $('#table-detail').on("click",".table-content",function(){
         selected_table_id=$(this).data("id");
         selected_table_name=$(this).data("name");
-
-        //show Sale Detail of each table
-
-          //Method 1:
-            /*
-            $('#selected-table').html('<br> <h3>table: '+ selected_table_name + '</h3><hr>');
-            $.ajax({
-                    type:"POST",
-                    data: {
-                        "_token" : $('meta[name="csrf-token"]').attr('content'),
-                        "table_id":selected_table_id,
-                        "table_name":selected_table_name,
-                    },
-                    url:"/cashier/getSaleDetailsByTable/"+selected_table_id ,
-                    success: function(data){
-                        $('#order-detail').html(data);
-                    }
-
-                });
-            */
-
-         //method 2: need to change the route when applying methods
-            /*
-            $.ajax({
-                    type:"POST",
-                    data: {
-                        "_token" : $('meta[name="csrf-token"]').attr('content'),
-                        "table_id":selected_table_id,
-                        "table_name":selected_table_name,
-                    },
-                    url:"/cashier/getSaleDetailsByTable" ,
-                    success: function(data){
-                        $('#order-detail').html(data);
-                    }
-
-            });
-            */
-
-        //method 3: use $.get()
-
         $.get("/cashier/getSaleDetailsByTable/" +selected_table_id,function(data){
-                                  $('#order-detail').html(data);
-
-        });
-         
+          $('#order-detail').html(data);
+        });  
     });
 
     // add menus to a table and show SaleDetails
@@ -150,7 +108,6 @@ $(document).ready(function(){
         }
         else{
             var menu_id=$(this).data("id");
-           // alert(selected_table_id);
             $.ajax({
                 type:"POST",
                 data: {
@@ -164,7 +121,6 @@ $(document).ready(function(){
                 success: function(data){
                     $('#order-detail').html(data);
                 }
-
             });
         }
     });
@@ -223,21 +179,16 @@ $(document).ready(function(){
         var totalAmount = $('#order-detail .goPay').data("totalamount");
         var change = totalAmount - receivedAmount;
         $('.change-to-return').html("Change: " + change);
-
     });
-
 
     //Make Payment
     $('.modal-footer .btn-payment').click(function(){
         var totalAmount = $('#order-detail .goPay').data("totalamount");
-        console.log(totalAmount ); //for checking, open Console from Browser
-
+        console.log(totalAmount); //for checking, open Console from Browser
         var receivedAmount = $('.received-amount').val();
-        console.log(receivedAmount ); // for checking
+        console.log(receivedAmount); // for checking
         var paymentMethod = $('#payment-method').find(":selected").text();
-
         var change = totalAmount - receivedAmount;
-
         var sale_id = $('#order-detail .goPay').data("id");
         console.log(sale_id ); 
 

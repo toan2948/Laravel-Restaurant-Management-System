@@ -21,10 +21,7 @@
                         <th scope='col'>Image</th>
                         <th scope='col'>Desc</th>
                         <th scope='col'>Category</th>
-
-
                         <th scope='col'>Edit</th>
-
                         <th scope='col'>Delete</th>
                     </tr>
                 </thead>

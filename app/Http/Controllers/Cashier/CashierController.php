@@ -19,10 +19,10 @@ class CashierController extends Controller
         return view('Cashier.index')->with('categories',$categories);
     }
 
-    public function getTable(){
+    public function getTable(){ //class: table-content
         $tables = Table::all();
         $html='';
-        foreach($tables as $table){
+        foreach($tables as $table){ 
              $html .='<div class="col-md-2 mb-4">
             <button class="btn btn-primary table-content" data-id="'.$table->id.'" data-name="'.$table->name.'">
             ';
@@ -37,30 +37,26 @@ class CashierController extends Controller
         return $html;
     }
 
-    public function getMenuByCategory($category_id){
-
+    public function getMenuByCategory($category_id){ //class: btn-menu
         $menus = Menu::where('category_id',$category_id)->get();
         $html='';
-
-        foreach($menus as $menu){
+        foreach($menus as $menu){ 
             $html .='
-                <div class ="col-me-3" text-center>
-                    <a class="btn btn-outline-secondary btn-menu" data-id="'.$menu->id.'">
-                        <img class="img-fluid"  width="150" height="100" src="'.url('/menu_images/'.$menu->image).'">
+                <div class ="col-md-3" text-center>
+                    <a class="btn btn-outline-secondary btn-menu" data-id="'.$menu->id.'"> 
+                        <img width="150" height="100" src="'.url('/menu_images/'.$menu->image).'">
                         <br>
                         '.$menu->name.'
                         <br>
                         '.$menu->price.'
                     </a>
                 </div>
-            
             ';
         }
         return $html;
     }
 
     public function orderFood(Request $request){
-        // used for video 42
         // return $request->menu_id;
 
         $table_id = $request->table_id;
@@ -93,7 +89,7 @@ class CashierController extends Controller
             $table->status = "unavailable";
             $table->save();
         }
-        else {
+        else { //if the sale exists
             $sale_id=$sale->id;
         }
         //add/update SaleDetail
@@ -101,6 +97,7 @@ class CashierController extends Controller
         $saleDetail->sale_id=$sale_id;
         $saleDetail->menu_id = $request->menu_id;
 
+        // create SaleDetail
         $menu = Menu::find($request->menu_id);
         $saleDetail->menu_name = $menu->name;
         $saleDetail->menu_price = $menu->price;
@@ -133,7 +130,7 @@ class CashierController extends Controller
         }
         */
 
-    //Method 3: 
+        //Method 3: 
     public function getSaleDetailsByTable($table_id){
         $sale = Sale::where('table_id',$table_id)->where('sale_status','unpaid')->first();
  
@@ -145,11 +142,9 @@ class CashierController extends Controller
              $html =' found no sale';
          }
          return $html;
-     }
+    }
 
-
-    private function getSaleDetail($sale_id){
-
+    private function getSaleDetail($sale_id){ //class: remove-menu, goConfirm, goPay
         $html ='Sale_ID: '.$sale_id;
         $html .='
             <table class="table table-responsive table-bordered table-hover" style="overflow-x:hidden overflow-y:scroll">
@@ -161,10 +156,8 @@ class CashierController extends Controller
                     <td>Total_Price</td>
                     <td>Status</td>
                     <td>Remove</td>
-
                 </tr>
             ';
-            
             $saleDetail_list = SaleDetail::where('sale_id',$sale_id)->get();
             //$confirmed to check if all orders are confirmed
             $confirmed =true;
@@ -201,7 +194,6 @@ class CashierController extends Controller
             <button type="button" data-toggle="modal" data-target="#exampleModal" data-totalAmount ="'.$sale->total_price.'" class="btn btn-block btn-danger goPay" data-id="'.$sale_id.'" >  Go Payment </button>
             ';
         }
-       
         return $html;
     }
     public function confirmOrder(Request $request){
@@ -212,11 +204,10 @@ class CashierController extends Controller
             $saleDetail->save();
         } */
 
+        //update the status of all SaleDetail
         $saleDetail_list = SaleDetail::where('sale_id',$sale_id)->update(['status'=>'confirmed']);
-
         $html = $this->getSaleDetail($sale_id);
         return $html;
-
     }
 
     public function removeMenu(Request $request){
@@ -228,11 +219,12 @@ class CashierController extends Controller
 
         $saleDetail = SaleDetail::find($saleDetail_id);
         $sale = Sale::find($sale_id);
+        //update the price of the sale
         $sub = $saleDetail->menu_price * $request->quantity;
         $sale->total_price = $sale->total_price - $sub;
         $sale->save(); 
         $saleDetail->delete();
-        // check if there any saledetail which has the sale id 
+        // check if there is any saledetail which has the sale id 
         $saleDetails = SaleDetail::where('sale_id', $sale_id)->first();
         if($saleDetails){
             $html = $this->getSaleDetail($sale_id);

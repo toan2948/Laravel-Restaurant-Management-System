@@ -12,21 +12,13 @@
 */
 
 
-
-Route::get('/info', function () {
-    return view('info');
-});
-Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/management', function(){
     return view('management.index');
-});
+}); 
 
 Route::resource('management/category', 'Management\CategoryController');
 Route::resource('management/menu', 'Management\MenuController');
@@ -38,9 +30,7 @@ Route::get('/cashier/getMenuByCategory/{category_id}','Cashier\CashierController
 //method 1: Route::post('/cashier/getSaleDetailsByTable/{table_id}','Cashier\CashierController@getSaleDetailsByTable');
 //method 2:
 Route::get('/cashier/getSaleDetailsByTable/{table_id}','Cashier\CashierController@getSaleDetailsByTable');
-
 Route::post('/cashier/orderFood','Cashier\CashierController@orderFood');
-
 Route::get('/cashier/getTable','Cashier\CashierController@getTable');
 Route::post('/cashier/confirmOrder','Cashier\CashierController@confirmOrder');
 Route::post('/cashier/removeMenu','Cashier\CashierController@removeMenu');

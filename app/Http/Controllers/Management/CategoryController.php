@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(3);
+        $categories = Category::all();
         return view('management.category')->with('categories',$categories);
     }
 
@@ -41,11 +41,10 @@ class CategoryController extends Controller
             'name'=>'required|unique:categories|max:255'
         ]);
         $category = new Category;
-
         $category->name = $request->name;
         $category->save();
         $request->session()->flash('status',$request->name.' is saved');
-        return(redirect('/management/category'));
+        return(redirect('/management/category')); //besser als: return view, weil es braucht $categories.
     }
 
     /**
@@ -87,7 +86,7 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
         $category->save();
-        $request->session()->flash('status',$request->name.' is updated');
+        session()->flash('status',$request->name.' is updated');
         return(redirect('/management/category'));
     }
 
