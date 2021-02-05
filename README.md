@@ -1,4 +1,4 @@
-App: https://serene-everglades-34973.herokuapp.com
+App: http://serene-everglades-34973.herokuapp.com/
 
 Login acccount: 
 - E-Mail Address: toan@com
