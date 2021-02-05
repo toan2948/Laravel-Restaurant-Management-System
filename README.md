@@ -1,8 +1,10 @@
 App: https://serene-everglades-34973.herokuapp.com
 
-Code: https://github.com/toan2948/Laravel1-Restaurant_System
+Login acccount: 
+- E-Mail Address: toan@com
+- password: vanlam2948
 
-Demo Video:
+Demo Video:https://youtu.be/oHWxmnGO5Ao
 
 Database: restaurantxxx.sql
 
