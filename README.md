@@ -4,7 +4,7 @@ Code: https://github.com/toan2948/Laravel1-Restaurant_System
 
 Demo Video:
 
-Database: in the folder 'mysql-databse'
+Database: laravel1.sql
 
 A Restaurant website where:
 + The owner can manage data by creating, edit, delete them.
