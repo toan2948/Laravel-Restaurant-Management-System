@@ -4,7 +4,7 @@ Login acccount:
 - E-Mail Address: toan@com
 - password: vanlam2948
 
-Demo Video:https://youtu.be/oHWxmnGO5Ao
+Demo Video:https://youtu.be/KDHnLoO47zI
 
 Database: restaurantxxx.sql
 
