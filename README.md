@@ -9,5 +9,5 @@ Demo Video:https://youtu.be/KDHnLoO47zI
 Database: restaurantxxx.sql
 
 A Restaurant website where:
-+ The owner can manage data by creating, edit, delete them.
-+ Waiter can order foods and make Rechnung for a customer;
++ The owner can manage data by creating, edit, deleting them.
++ Waiters can order foods and make Rechnung for a customer;
